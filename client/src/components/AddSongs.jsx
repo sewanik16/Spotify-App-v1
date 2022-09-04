@@ -24,9 +24,9 @@ let addSong=(e)=>{
     data: JSON.stringify(data)
   }).then(() =>{
     navigate("/")
-      console.log("success ")
+      // console.log("success ")
   }).catch((error) => console.log("errrr",error))
-    console.log(data);
+    // console.log(data);
 }
 
 let addArtist=(e)=>{
@@ -71,7 +71,7 @@ const fileTobase64 = (file) =>{
 
 useEffect(()=>{
   axios.get("http://localhost:5000/song/all").then((response) =>{
-    console.log(response.data[0].name)
+    // console.log(response.data[0].name)
     setAllArt(response.data[0].name)
 }).catch((error) => console.log("errrr",error))
 },[])

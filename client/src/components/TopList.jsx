@@ -2,31 +2,31 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState,useEffect } from "react";
 
-function TopList(){
+function TopList({filterSong}){
 
     const [song,setSong] = useState([])
     const [artist,setArtist] = useState([])
     const [allArt,setAllArt] = useState([])
     const [currentPage,setCurrentPage] = useState(1)
     const [itemPerPage] = useState(5)
-
-    const [filterSong,setFilterSong] = useState([])
-
+    const [FilterData,setFilterData] = useState([])
     const [rate,setRate] = useState(3)
 
-    let indexOfLastItem = currentPage * itemPerPage;
-    let indexOfFirstItem = indexOfLastItem - itemPerPage;
-    let currentItemSongs = filterSong.slice(indexOfFirstItem,indexOfLastItem)
-    let pageNumbers=[]
-    for(let i=1;i<=Math.ceil(song.length/itemPerPage);i++){
-        pageNumbers.push(i)
-    }
+    useEffect(()=>{
+        if(filterSong.length>0){
+            setFilterData(filterSong)
+        }else{
+            setFilterData(song)
+        }
+        // console.log("my",filterSong)
+    },[filterSong])
+
 
     useEffect(()=>{
         axios.get("http://localhost:5000/song/").then((response) =>{
             // console.log(response.data)
             setSong(response.data)
-            setFilterSong(response.data)
+            setFilterData(response.data)
         }).catch((error) => console.log("errrr",error))
 
         axios.get("http://localhost:5000/artist/").then((response) =>{
@@ -43,6 +43,19 @@ function TopList(){
     
 
     },[])
+
+    let indexOfLastItem = currentPage * itemPerPage;
+    let indexOfFirstItem = indexOfLastItem - itemPerPage;
+    let currentItemSongs = FilterData.slice(indexOfFirstItem,indexOfLastItem)
+    let pageNumbers=[]
+    for(let i=1;i<=Math.ceil(song.length/itemPerPage);i++){
+        pageNumbers.push(i)
+    }
+
+     
+
+
+    
 
     // let handleRate = ()=>{
 
