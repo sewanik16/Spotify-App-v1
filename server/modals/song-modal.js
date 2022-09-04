@@ -2,10 +2,14 @@
 const mongoose = require('mongoose')
 
 const songSchema = new mongoose.Schema({
-    artwork:String,
-    song:String,
+   
+    songs:{
+        type:String,
+        default:"Dil Hai Hindustani"
+    },
     dateofrelease:String,
-    artists:String,
+    artwork:String, 
+    artists:[String],
     rate:{
         type:String,
         default:4.3
