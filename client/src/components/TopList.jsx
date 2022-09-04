@@ -23,18 +23,18 @@ function TopList({filterSong}){
 
 
     useEffect(()=>{
-        axios.get("http://localhost:5000/song/").then((response) =>{
+        axios.get("https://vercel-song-app.vercel.app/song").then((response) =>{
             // console.log(response.data)
             setSong(response.data)
             setFilterData(response.data)
         }).catch((error) => console.log("errrr",error))
 
-        axios.get("http://localhost:5000/artist/").then((response) =>{
+        axios.get("https://vercel-song-app.vercel.app/artist").then((response) =>{
             // console.log(response.data)
             setArtist(response.data)
         }).catch((error) => console.log("errrr",error))
 
-        axios.get("http://localhost:5000/song/all").then((response) =>{
+        axios.get("https://vercel-song-app.vercel.app/song/all").then((response) =>{
         // console.log(response.data[0].name)
         setAllArt(response.data[0].songs)
         
