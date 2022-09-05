@@ -23,24 +23,22 @@ function TopList({filterSong}){
 
 
     useEffect(()=>{
-        axios.get("https://vercel-song-app.vercel.app/song").then((response) =>{
-            // console.log(response.data)
+        axios.get("http://localhost:5000/song/").then((response) =>{
+            console.log(response.data)
             setSong(response.data)
             setFilterData(response.data)
         }).catch((error) => console.log("errrr",error))
 
-        axios.get("https://vercel-song-app.vercel.app/artist").then((response) =>{
+        axios.get("http://localhost:5000/artist").then((response) =>{
             // console.log(response.data)
             setArtist(response.data)
         }).catch((error) => console.log("errrr",error))
 
-        axios.get("https://vercel-song-app.vercel.app/song/all").then((response) =>{
+        axios.get("http://localhost:5000/song/all").then((response) =>{
         // console.log(response.data[0].name)
         setAllArt(response.data[0].songs)
         
     }).catch((error) => console.log("errrr",error))
-
-    
 
     },[])
 
@@ -52,7 +50,11 @@ function TopList({filterSong}){
         pageNumbers.push(i)
     }
 
-     
+     function handleDelete(id){
+        axios.delete(`http://localhost:5000/song/delete/${id}`).then((res)=>{
+            console.log("deleted",res)
+        })
+     }
 
 
     
@@ -95,13 +97,14 @@ function TopList({filterSong}){
                                     <th>Date of Release</th>
                                     <th>Artists</th>
                                     <th>Rate</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody >
                             {
                                 currentItemSongs.map((data,index)=>{
                                     return(
-                                        <tr key={index}  className="m-">
+                                        <tr key={index}  className="m-2">
                                             <td style={{width:"200px",height:"100px"}}>
                                             <img src={data.artwork} className="w-100" alt=""/>
                                             </td>
@@ -115,9 +118,14 @@ function TopList({filterSong}){
                                                 <i className="fa-regular fa-star" onClick={()=>setRate(rate+1)}/>
                                                )) 
                                             }
-                                           
                                             </td>
-                                        </tr>
+                                            <td className="py-5">
+                                               <span onClick={()=>{handleDelete(data._id)}} 
+                                               style={{cursor: 'pointer'}}> ❌</span>
+                                               <span>  🖊️</span>
+            
+                                            </td>
+                                        </tr>  
                                     )
                                 })
                             }
