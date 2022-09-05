@@ -52,12 +52,13 @@ function TopList({filterSong}){
 
      function handleDelete(id){
         axios.delete(`http://localhost:5000/song/delete/${id}`).then((res)=>{
-            console.log("deleted",res)
+            axios.get("http://localhost:5000/song/").then((response) =>{
+            console.log(response.data)
+            setSong(response.data)
+            setFilterData(response.data)
+        }).catch((error) => console.log("errrr",error))
         })
      }
-
-
-    
 
     // let handleRate = ()=>{
 
@@ -122,8 +123,7 @@ function TopList({filterSong}){
                                             <td className="py-5">
                                                <span onClick={()=>{handleDelete(data._id)}} 
                                                style={{cursor: 'pointer'}}> ❌</span>
-                                               <span>  🖊️</span>
-            
+                                               <span>🖊️</span>
                                             </td>
                                         </tr>  
                                     )
