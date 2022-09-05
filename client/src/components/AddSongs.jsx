@@ -18,13 +18,13 @@ function AddSongs() {
   
 let addSong=(e)=>{
     e.preventDefault();
-    axios({url:"https://vercel-song-app.vercel.app/song/add",
+    axios({url:"http://localhost:5000/song/add",
     method:"POST",  
     headers:{ "Content-Type": "application/json" },
     data: JSON.stringify(data)
   }).then(() =>{
     navigate("/")
-      // console.log("success ")
+      console.log("success ")
   }).catch((error) => console.log("errrr",error))
     // console.log(data);
 }
@@ -34,13 +34,14 @@ let addArtist=(e)=>{
   
   // console.log(art)
   e.preventDefault();
-  axios({url:"https://vercel-song-app.vercel.app/artist/add",
+  axios({url:"http://localhost:5000/artist/add",
   method:"POST",  
   headers:{ "Content-Type": "application/json" },
   data: JSON.stringify(art)
 }).then(() =>{
+  console.log("successart")
      document.getElementById('closebutton').click()
-     axios.get("https://vercel-song-app.vercel.app/song/all").then((response) =>{
+     axios.get("http://localhost:5000/song/all").then((response) =>{
       setAllArt(response.data[0].name)
   }).catch((error) => console.log("errrr",error))
 
@@ -70,7 +71,7 @@ const fileTobase64 = (file) =>{
 }
 
 useEffect(()=>{
-  axios.get("https://vercel-song-app.vercel.app/song/all").then((response) =>{
+  axios.get("http://localhost:5000/song/all").then((response) =>{
     // console.log(response.data[0].name)
     setAllArt(response.data[0].name)
 }).catch((error) => console.log("errrr",error))

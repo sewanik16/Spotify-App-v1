@@ -33,6 +33,21 @@ router.post("/add",(req,res)=>{
         res.send(err)
         console.log("kuch to gdbd hai")
     })
+
+
+    
 })
+
+
+router.delete("/delete/:id",(req,res)=>{
+    SongModal.deleteOne({_id:req.params.id}).then(()=>{
+        res.send("record deleted successfully")
+        console.log("deleted on server side")
+    }).catch((err)=>{
+        res.send(err)
+        console.log("kuch to gdbd hai")
+    })
+})
+
 
 module.exports = router;
