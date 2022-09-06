@@ -123,7 +123,8 @@ function TopList({filterSong}){
                                             <td className="py-5">
                                                <span onClick={()=>{handleDelete(data._id)}} 
                                                style={{cursor: 'pointer'}}> ❌</span>
-                                               <span>🖊️</span>
+                                               &nbsp;&nbsp;&nbsp;
+                                               <span style={{cursor: 'pointer'}}>🖊️</span>
                                             </td>
                                         </tr>  
                                     )
